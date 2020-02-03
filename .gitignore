@@ -9,3 +9,4 @@ target
 .bloop/
 .g8/
 .metals/
+metals.sbt
