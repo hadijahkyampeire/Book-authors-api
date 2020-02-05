@@ -1,5 +1,8 @@
 version: "3.7"
 
+volumes:
+  sbtuser:
+
 services:
   book_server: #container name
     build:
@@ -7,21 +10,16 @@ services:
       dockerfile: Dockerfile
     volumes:
       - ./:/opt/book-api
-    ports: 
+      - sbtuser:/home/sbtuser
+    ports:
       - 9000:9000
-    environment: 
-      - DATABASE_URL=jdbc:mysql://localhost/scalabooksdb?useSSL=false
-    command: 
+    command:
       - run
-    depends_on: 
+    depends_on:
       - db
-  
+
   db:
     image: mysql:5.7
-    ports:
-      - "32000:3306"
     environment:
       MYSQL_DATABASE: scalabooksdb
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_PASSWORD: password
-      MYSQL_USERNAME: username
